@@ -20,6 +20,7 @@ namespace DS.Windows
             AddStyles();
         }
 
+#region Overrided Methods
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
             List<Port> compatiblePorts = new List<Port>();
@@ -43,7 +44,9 @@ namespace DS.Windows
 
             return compatiblePorts;
         }
+#endregion
 
+#region Manipulators
         private void AddManipulators()
         {
             //Use scrollwheel to zoom in and out
@@ -82,6 +85,9 @@ namespace DS.Windows
 
             return contextualMenuManipulator;
         }
+#endregion
+
+#region Elements Creation
          private Group CreateGroup(string title, Vector2 localMousePosition)
         {
             Group group = new Group()
@@ -102,6 +108,9 @@ namespace DS.Windows
 
             return node;
         }
+#endregion
+
+#region Elements Addition
         private void AddGridBackground()
         {
             GridBackground gridBackground = new GridBackground();
@@ -119,5 +128,6 @@ namespace DS.Windows
             styleSheets.Add(nodeStyleSheet);
 
         }
+#endregion
     }   
 }
