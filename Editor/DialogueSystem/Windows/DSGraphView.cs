@@ -6,63 +6,67 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DSGraphView : GraphView
+namespace DS.Windows
 {
-    public DSGraphView()
+    using Elements;
+    public class DSGraphView : GraphView
     {
-        AddManipulators();
-        AddGridBackground();
+        public DSGraphView()
+        {
+            AddManipulators();
+            AddGridBackground();
 
 
-        AddStyles();
-    }
+            AddStyles();
+        }
 
 
-    private void AddManipulators()
-    {
-        //Use scrollwheel to zoom in and out
-        SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
+        private void AddManipulators()
+        {
+            //Use scrollwheel to zoom in and out
+            SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
-        this.AddManipulator(CreateNodeContextualMenu());
+            this.AddManipulator(CreateNodeContextualMenu());
 
-        //Hold Middle Mouse Button to drag the Dialogue Graph
-        this.AddManipulator(new ContentDragger());
+            //Hold Middle Mouse Button to drag the Dialogue Graph
+            this.AddManipulator(new ContentDragger());
 
-        //Allows you to drag the selected nodes selected by the rectangle selector
-        this.AddManipulator(new SelectionDragger());
+            //Allows you to drag the selected nodes selected by the rectangle selector
+            this.AddManipulator(new SelectionDragger());
 
-        //Allows you to select multiple nodes by click dragging the mouse
-        this.AddManipulator(new RectangleSelector());
-    }
-    private IManipulator CreateNodeContextualMenu()
-    {
-        ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(
-            menuEvent => menuEvent.menu.AppendAction("Add Node", actionEvent => AddElement(CreateNode(actionEvent.eventInfo.localMousePosition)))
-        );
+            //Allows you to select multiple nodes by click dragging the mouse
+            this.AddManipulator(new RectangleSelector());
+        }
+        private IManipulator CreateNodeContextualMenu()
+        {
+            ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(
+                menuEvent => menuEvent.menu.AppendAction("Add Node", actionEvent => AddElement(CreateNode(actionEvent.eventInfo.localMousePosition)))
+            );
 
-        return contextualMenuManipulator;
-    }
-    private DSNode CreateNode(Vector2 position)
-    {
-        DSNode node = new DSNode();
+            return contextualMenuManipulator;
+        }
+        private DSNode CreateNode(Vector2 position)
+        {
+            DSNode node = new DSNode();
 
-        node.Initialize(position);
-        node.Draw();
+            node.Initialize(position);
+            node.Draw();
 
-        return node;
-    }
-    private void AddGridBackground()
-    {
-        GridBackground gridBackground = new GridBackground();
+            return node;
+        }
+        private void AddGridBackground()
+        {
+            GridBackground gridBackground = new GridBackground();
 
-        gridBackground.StretchToParentSize();
+            gridBackground.StretchToParentSize();
 
-        Insert(0, gridBackground);
-    }
-    private void AddStyles()
-    {
-        StyleSheet styleSheet = (StyleSheet) EditorGUIUtility.Load("DialogueSystem/DSGraphViewStyles.uss");
+            Insert(0, gridBackground);
+        }
+        private void AddStyles()
+        {
+            StyleSheet styleSheet = (StyleSheet) EditorGUIUtility.Load("DialogueSystem/DSGraphViewStyles.uss");
 
-        styleSheets.Add(styleSheet);
-    }
+            styleSheets.Add(styleSheet);
+        }
+    }   
 }

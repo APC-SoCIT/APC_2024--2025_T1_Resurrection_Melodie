@@ -4,56 +4,60 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DSNode : Node
+namespace DS.Elements
 {
-    public string DialogueName {get; set; }
-    public List<string> Choices {get; set; }
-    public string Text {get; set; }
-    public DSDialogueType DialogueType {get; set; }
-    public void Initialize(Vector2 position)
+    public class DSNode : Node
     {
-        DialogueName = "DialogueName";
-        Choices = new List<string>();
-        Text = "Dialogue Text.";
-
-        SetPosition(new Rect(position, Vector2.zero));
-    }
-
-    public void Draw()
-    {
-        //*TITLE CONTAINER*//
-        TextField dialogueNameTextField = new TextField()
+        public string DialogueName {get; set; }
+        public List<string> Choices {get; set; }
+        public string Text {get; set; }
+        public DSDialogueType DialogueType {get; set; }
+        public void Initialize(Vector2 position)
         {
-            value = DialogueName
-        };
+            DialogueName = "DialogueName";
+            Choices = new List<string>();
+            Text = "Dialogue Text.";
 
-        titleContainer.Insert(0, dialogueNameTextField);
+            SetPosition(new Rect(position, Vector2.zero));
+        }
 
-        Port inputPort = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
-
-        inputPort.portName = "Dialogue Connection";
-
-        inputContainer.Add(inputPort);
-
-        //*EXTENSION CONTAINER*//
-        VisualElement customDataContainer = new VisualElement();
-
-        Foldout textFoldout = new Foldout()
+        public void Draw()
         {
-            text = "DialogueText"
-        };
+            //*TITLE CONTAINER*//
+            TextField dialogueNameTextField = new TextField()
+            {
+                value = DialogueName
+            };
 
-        TextField textTextField = new TextField()
-        {
-            value = Text
-        };
+            titleContainer.Insert(0, dialogueNameTextField);
 
-        textFoldout.Add(textTextField);
+            Port inputPort = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
 
-        customDataContainer.Add(textFoldout);
+            inputPort.portName = "Dialogue Connection";
 
-        extensionContainer.Add(customDataContainer);
+            inputContainer.Add(inputPort);
 
-        RefreshExpandedState();
+            //*EXTENSION CONTAINER*//
+            VisualElement customDataContainer = new VisualElement();
+
+            Foldout textFoldout = new Foldout()
+            {
+                text = "DialogueText"
+            };
+
+            TextField textTextField = new TextField()
+            {
+                value = Text
+            };
+
+            textFoldout.Add(textTextField);
+
+            customDataContainer.Add(textFoldout);
+
+            extensionContainer.Add(customDataContainer);
+
+            RefreshExpandedState();
+        }
     }
 }
+
