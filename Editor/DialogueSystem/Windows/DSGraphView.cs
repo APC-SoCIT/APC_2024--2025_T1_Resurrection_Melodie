@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -19,6 +20,29 @@ namespace DS.Windows
             AddStyles();
         }
 
+        public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
+        {
+            List<Port> compatiblePorts = new List<Port>();
+            //Basically allows you to connect each node to the ports.
+            ports.ForEach(port =>
+            {
+                //Used switch case instead of the common If else statement as it would be a lot cleaner and faster.
+                switch (true)
+                {
+                    case bool _ when startPort == port:
+                    return;
+                    case bool _ when startPort.node == port.node:
+                    return;
+                    case bool _ when startPort.direction == port.direction:
+                    return;
+                    default:
+                    compatiblePorts.Add(port);
+                    break;
+                }
+            });
+
+            return compatiblePorts;
+        }
 
         private void AddManipulators()
         {
