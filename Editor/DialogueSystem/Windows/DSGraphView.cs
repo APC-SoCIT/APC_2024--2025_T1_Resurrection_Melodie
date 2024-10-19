@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -11,8 +12,19 @@ public class DSGraphView : GraphView
     {
         AddManipulators();
         AddGridBackground();
+
+        CreateNode();
+
         AddStyles();
     }
+
+    private void CreateNode()
+    {
+        DSNode node = new DSNode();
+
+        AddElement(node);
+    }
+
     private void AddManipulators()
     {
         //Use scrollwheel to zoom in and out
