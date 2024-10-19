@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public enum DSDialogueType
+namespace DS.Enumerations
 {
-    SingleChoice,
-    MultipleChoice
+    public enum DSDialogueType
+    {
+        SingleChoice,
+        MultipleChoice
+    }
 }

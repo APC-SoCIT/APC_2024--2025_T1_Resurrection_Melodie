@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -9,6 +7,7 @@ using UnityEngine.UIElements;
 namespace DS.Windows
 {
     using Elements;
+    using Enumerations;
     public class DSGraphView : GraphView
     {
         public DSGraphView()
@@ -26,7 +25,8 @@ namespace DS.Windows
             //Use scrollwheel to zoom in and out
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
-            this.AddManipulator(CreateNodeContextualMenu());
+            this.AddManipulator(CreateNodeContextualMenu("Add Single Choice Node)", DSDialogueType.SingleChoice));
+            this.AddManipulator(CreateNodeContextualMenu("Add Multiple Choice Node)", DSDialogueType.MultipleChoice));
 
             //Hold Middle Mouse Button to drag the Dialogue Graph
             this.AddManipulator(new ContentDragger());
@@ -37,17 +37,18 @@ namespace DS.Windows
             //Allows you to select multiple nodes by click dragging the mouse
             this.AddManipulator(new RectangleSelector());
         }
-        private IManipulator CreateNodeContextualMenu()
+        private IManipulator CreateNodeContextualMenu(string actionTitle, DSDialogueType dialogueType)
         {
             ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(
-                menuEvent => menuEvent.menu.AppendAction("Add Node", actionEvent => AddElement(CreateNode(actionEvent.eventInfo.localMousePosition)))
+                menuEvent => menuEvent.menu.AppendAction(actionTitle, actionEvent => AddElement(CreateNode(dialogueType, actionEvent.eventInfo.localMousePosition)))
             );
 
             return contextualMenuManipulator;
         }
-        private DSNode CreateNode(Vector2 position)
+        private DSNode CreateNode(DSDialogueType dialogueType, Vector2 position)
         {
-            DSNode node = new DSNode();
+            Type nodeType = Type.GetType($"DS.Elements.DS{dialogueType}Node");
+            DSNode node = (DSNode) Activator.CreateInstance(nodeType);
 
             node.Initialize(position);
             node.Draw();
@@ -64,9 +65,12 @@ namespace DS.Windows
         }
         private void AddStyles()
         {
-            StyleSheet styleSheet = (StyleSheet) EditorGUIUtility.Load("DialogueSystem/DSGraphViewStyles.uss");
+            StyleSheet graphViewStyleSheet = (StyleSheet) EditorGUIUtility.Load("DialogueSystem/DSGraphViewStyles.uss");
+            StyleSheet nodeStyleSheet = (StyleSheet) EditorGUIUtility.Load("DialogueSystem/DSNodeStyles.uss");
 
-            styleSheets.Add(styleSheet);
+            styleSheets.Add(graphViewStyleSheet);
+            styleSheets.Add(nodeStyleSheet);
+
         }
     }   
 }

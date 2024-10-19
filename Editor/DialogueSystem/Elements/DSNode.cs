@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -6,28 +5,36 @@ using UnityEngine.UIElements;
 
 namespace DS.Elements
 {
+    using Enumerations;
     public class DSNode : Node
     {
         public string DialogueName {get; set; }
         public List<string> Choices {get; set; }
         public string Text {get; set; }
         public DSDialogueType DialogueType {get; set; }
-        public void Initialize(Vector2 position)
+        public virtual void Initialize(Vector2 position)
         {
             DialogueName = "DialogueName";
             Choices = new List<string>();
             Text = "Dialogue Text.";
 
             SetPosition(new Rect(position, Vector2.zero));
+
+            mainContainer.AddToClassList("ds-node__main-container");
+            extensionContainer.AddToClassList("ds-node__extension-container");
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
             //*TITLE CONTAINER*//
             TextField dialogueNameTextField = new TextField()
             {
                 value = DialogueName
             };
+
+            dialogueNameTextField.AddToClassList("ds-node__textfield");
+            dialogueNameTextField.AddToClassList("ds-node__filename-textfield");
+            dialogueNameTextField.AddToClassList("ds-node__textfield__hidden");
 
             titleContainer.Insert(0, dialogueNameTextField);
 
@@ -40,6 +47,8 @@ namespace DS.Elements
             //*EXTENSION CONTAINER*//
             VisualElement customDataContainer = new VisualElement();
 
+            customDataContainer.AddToClassList("ds-node__custom-data-container");
+
             Foldout textFoldout = new Foldout()
             {
                 text = "DialogueText"
@@ -50,13 +59,15 @@ namespace DS.Elements
                 value = Text
             };
 
+            textTextField.AddToClassList("ds-node__textfield");
+            textTextField.AddToClassList("ds-node__quote-textfield");
+
             textFoldout.Add(textTextField);
 
             customDataContainer.Add(textFoldout);
 
             extensionContainer.Add(customDataContainer);
 
-            RefreshExpandedState();
         }
     }
 }
