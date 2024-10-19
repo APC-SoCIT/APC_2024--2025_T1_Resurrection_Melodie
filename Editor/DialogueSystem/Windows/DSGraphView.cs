@@ -13,24 +13,43 @@ public class DSGraphView : GraphView
         AddManipulators();
         AddGridBackground();
 
-        CreateNode();
 
         AddStyles();
     }
 
-    private void CreateNode()
-    {
-        DSNode node = new DSNode();
-
-        AddElement(node);
-    }
 
     private void AddManipulators()
     {
         //Use scrollwheel to zoom in and out
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
+
+        this.AddManipulator(CreateNodeContextualMenu());
+
         //Hold Middle Mouse Button to drag the Dialogue Graph
         this.AddManipulator(new ContentDragger());
+
+        //Allows you to drag the selected nodes selected by the rectangle selector
+        this.AddManipulator(new SelectionDragger());
+
+        //Allows you to select multiple nodes by click dragging the mouse
+        this.AddManipulator(new RectangleSelector());
+    }
+    private IManipulator CreateNodeContextualMenu()
+    {
+        ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(
+            menuEvent => menuEvent.menu.AppendAction("Add Node", actionEvent => AddElement(CreateNode(actionEvent.eventInfo.localMousePosition)))
+        );
+
+        return contextualMenuManipulator;
+    }
+    private DSNode CreateNode(Vector2 position)
+    {
+        DSNode node = new DSNode();
+
+        node.Initialize(position);
+        node.Draw();
+
+        return node;
     }
     private void AddGridBackground()
     {

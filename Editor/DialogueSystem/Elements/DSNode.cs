@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DSNode : Node
 {
@@ -9,10 +10,50 @@ public class DSNode : Node
     public List<string> Choices {get; set; }
     public string Text {get; set; }
     public DSDialogueType DialogueType {get; set; }
-    public void Initialize()
+    public void Initialize(Vector2 position)
     {
         DialogueName = "DialogueName";
         Choices = new List<string>();
         Text = "Dialogue Text.";
+
+        SetPosition(new Rect(position, Vector2.zero));
+    }
+
+    public void Draw()
+    {
+        //*TITLE CONTAINER*//
+        TextField dialogueNameTextField = new TextField()
+        {
+            value = DialogueName
+        };
+
+        titleContainer.Insert(0, dialogueNameTextField);
+
+        Port inputPort = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi, typeof(bool));
+
+        inputPort.portName = "Dialogue Connection";
+
+        inputContainer.Add(inputPort);
+
+        //*EXTENSION CONTAINER*//
+        VisualElement customDataContainer = new VisualElement();
+
+        Foldout textFoldout = new Foldout()
+        {
+            text = "DialogueText"
+        };
+
+        TextField textTextField = new TextField()
+        {
+            value = Text
+        };
+
+        textFoldout.Add(textTextField);
+
+        customDataContainer.Add(textFoldout);
+
+        extensionContainer.Add(customDataContainer);
+
+        RefreshExpandedState();
     }
 }
