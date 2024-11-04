@@ -101,7 +101,59 @@ MonoBehaviour:
   - {fileID: -4366071820445917742}
   - {fileID: 728786916902851853}
   - {fileID: 3670600681006491342}
-  current: {fileID: 728786916902851853}
+  - {fileID: 3419146264497083798}
+  - {fileID: 409614500955576710}
+  current: {fileID: 3419146264497083798}
+--- !u!114 &409614500955576710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35693537cd9fd5340af89028b814490b, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 856, y: -184}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 409614500955576710}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 3419146264497083798}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 409614500955576710}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  speakerName: Joy
+  dialogueLine: Last Node
+  sprite: {fileID: 21300000, guid: 92e232fbd139790419b240c4be1c4e66, type: 3}
+  background: {fileID: 0}
+  cameraEffectPrefab: {fileID: 0}
+  displayEffects: {fileID: 0}
+  soundEffect: {fileID: 0}
+  musicClip: {fileID: 0}
 --- !u!114 &728786916902851853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,9 +201,62 @@ MonoBehaviour:
   exit: 0
   speakerName: Joy
   dialogueLine: When the next line starts, it should play Kirarin V
-  sprite: {fileID: 0}
-  background: {fileID: 21300000, guid: e698e22e10730984f996aee2ad5658e1, type: 3}
-  cameraEffectPrefab: {fileID: 8854174374975638748, guid: 326b0bd873ce73c49aa4c68ce58b2ccc, type: 3}
+  sprite: {fileID: 21300000, guid: 92e232fbd139790419b240c4be1c4e66, type: 3}
+  background: {fileID: 0}
+  cameraEffectPrefab: {fileID: 0}
+  displayEffects: {fileID: 0}
+  soundEffect: {fileID: 0}
+  musicClip: {fileID: 0}
+--- !u!114 &3419146264497083798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35693537cd9fd5340af89028b814490b, type: 3}
+  m_Name: Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 584, y: -184}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 3419146264497083798}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 3670600681006491342}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 3419146264497083798}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: 409614500955576710}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  speakerName: Joy
+  dialogueLine: When this line shows up, the camera should shake.
+  sprite: {fileID: 21300000, guid: 92e232fbd139790419b240c4be1c4e66, type: 3}
+  background: {fileID: 0}
+  cameraEffectPrefab: {fileID: 3421137207898771871, guid: e4a56550fa1ee9341b64f871fa55899b, type: 3}
   displayEffects: {fileID: 0}
   soundEffect: {fileID: 0}
   musicClip: {fileID: 0}
@@ -190,7 +295,10 @@ MonoBehaviour:
       _node: {fileID: 3670600681006491342}
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: entry
+        node: {fileID: 3419146264497083798}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -199,8 +307,8 @@ MonoBehaviour:
   exit: 0
   speakerName: Joy
   dialogueLine: Kirarin - V
-  sprite: {fileID: 0}
-  background: {fileID: 21300000, guid: e698e22e10730984f996aee2ad5658e1, type: 3}
+  sprite: {fileID: 21300000, guid: 92e232fbd139790419b240c4be1c4e66, type: 3}
+  background: {fileID: 0}
   cameraEffectPrefab: {fileID: 0}
   displayEffects: {fileID: 0}
   soundEffect: {fileID: 8300000, guid: 8db964442b44cf04dba7f46960ae5b12, type: 3}

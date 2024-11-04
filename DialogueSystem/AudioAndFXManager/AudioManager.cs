@@ -5,24 +5,25 @@ public class AudioManager : MonoBehaviour
     private AudioSource soundEffectsSource;
     private AudioSource musicSource;
 
-    public AudioClip CurrentMusicClip => musicSource.clip; // Property to access the current music clip
+    public AudioClip CurrentMusicClip => musicSource.clip;
 
     void Awake()
     {
-        // Ensure there's only one AudioListener in the scene
-        AudioListener audioListener = GetComponent<AudioListener>();
+        // Ensures that there is only one AudioListener in the scene
+        GameObject audioCamera = GameObject.Find("Audio");
+        AudioListener audioListener = audioCamera.GetComponent<AudioListener>();
         if (audioListener == null)
         {
-            audioListener = gameObject.AddComponent<AudioListener>();
+            audioListener = audioCamera.AddComponent<AudioListener>();
         }
 
         // Add and configure AudioSources for sound effects and music
         soundEffectsSource = gameObject.AddComponent<AudioSource>();
         musicSource = gameObject.AddComponent<AudioSource>();
-
-        // Configure the music source to loop
+        // Configure the music source to loop until stopped
         musicSource.loop = true;
     }
+
 
     public void PlaySoundEffect(AudioClip clip)
     {
@@ -36,12 +37,12 @@ public class AudioManager : MonoBehaviour
     {
         if (clip != null)
         {
-            // Only change the music if it's a different clip
+            // Only change the music if a different music clip is used
             if (musicSource.clip != clip)
             {
                 musicSource.clip = clip;
                 musicSource.Play();
-                Debug.Log("Playing new music: " + clip.name);
+                // Debug.Log("Playing new music: " + clip.name);
             }
         }
     }
@@ -52,7 +53,7 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.Stop();
             musicSource.clip = null;
-            Debug.Log("Music stopped");
+            // Debug.Log("Music stopped");
         }
     }
 }
