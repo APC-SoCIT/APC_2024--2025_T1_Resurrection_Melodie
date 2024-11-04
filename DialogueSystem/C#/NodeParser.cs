@@ -30,27 +30,28 @@ public class NodeParser : MonoBehaviour
         BaseNode b = graph.current;
         string data = b.GetString();
         string[] dataParts = data.Split('/');
-        
-        if (dataParts[0] == "Start")
-        {
-            NextNode("exit");
-        }
-        else if (dataParts[0] == "DialogueNode")
-        {
-            speaker.text = dataParts[1];
-            dialogue.text = dataParts[2];
-            speakerImage.sprite = b.GetSprite();
 
-            // Trigger effects if the node is of type DialogueNode
-            DialogueNode dialogueNode = b as DialogueNode;
-            if (dialogueNode != null)
-            {
-                dialogueNode.TriggerEffects();
-            }
+        switch (dataParts[0])
+        {
+            case "Start":
+                NextNode("exit");
+                break;
 
-            yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-            yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-            NextNode("exit");
+            case "DialogueNode":
+                speaker.text = dataParts[1];
+                dialogue.text = dataParts[2];
+                speakerImage.sprite = b.GetSprite();
+
+                // Trigger effects if the node is of type DialogueNode
+                if (b is DialogueNode dialogueNode)
+                {
+                    dialogueNode.TriggerEffects();
+                }
+
+                yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+                yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                NextNode("exit");
+                break;
         }
     }
 

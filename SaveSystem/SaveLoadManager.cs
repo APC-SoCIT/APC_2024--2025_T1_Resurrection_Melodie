@@ -8,9 +8,7 @@ public class SaveLoadManagerXNode : MonoBehaviour
     public class GameData
     {
         public string currentNodeID; // ID of the current node
-        public string[] playerChoices; // Array of choices made by the player
-        public int relationshipScore; // Example variable for story branching
-        // Add other data as needed
+        
     }
 
     private string saveFilePath;
@@ -26,8 +24,6 @@ public class SaveLoadManagerXNode : MonoBehaviour
         GameData data = new GameData
         {
             currentNodeID = currentNode != null ? currentNode.name : null, // Using node name or unique ID
-            playerChoices = choices,
-            relationshipScore = relationshipScore
         };
 
         string json = JsonUtility.ToJson(data, true);

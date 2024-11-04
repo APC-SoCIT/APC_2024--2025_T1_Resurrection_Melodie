@@ -5,59 +5,65 @@ using XNode;
 
 public class DialogueNode : BaseNode 
 {
+    [Input] public int entry;
+    [Output] public int exit;
+    public string speakerName;
+    public string dialogueLine;
+    public Sprite sprite;
+    public GameObject cameraEffectPrefab;
+    public GameObject displayEffects; 
+    public AudioClip soundEffect;
+    public AudioClip musicClip;
 
-	[Input] public int entry;
-	[Output] public int exit;
-	public string speakerName;
-	public string dialogueLine;
-	public Sprite sprite;
-	public GameObject cameraEffectPrefab;
-	public GameObject displayEffects; 
-	public AudioClip soundEffect;
-	public AudioClip musicClip;
-	private bool soundPlayed = false;
-	public override string GetString()
-	{
-		return "DialogueNode/" + speakerName + "/" + dialogueLine;
-	}
-	public override Sprite GetSprite()
-	{
-		return sprite;
-	}
 
-	public void TriggerEffects()
-	{
+    public override string GetString()
+    {
+        Debug.Log("Dialogue Line Length: " + dialogueLine.Length);
+        return "DialogueNode/" + speakerName + "/" + dialogueLine;
+    }
+    public override Sprite GetSprite()
+    {
+        return sprite;
+    }
+
+public void TriggerEffects()
+{
     if (cameraEffectPrefab != null)
-        Instantiate(cameraEffectPrefab);  // Trigger camera effect
-
-    if (soundEffect != null)
-        AudioSource.PlayClipAtPoint(soundEffect, Camera.main.transform.position);  // Play sound
-		soundPlayed = true;
-		Debug.Log("SFX should start playing");
-
-    if ( displayEffects!= null)
-        Instantiate(displayEffects);  // Special Effects
-
-    if (musicClip != null)
     {
-        AudioSource audioSource = Camera.main.GetComponent<AudioSource>(); // Play music
-        if (audioSource != null)
+        Instantiate(cameraEffectPrefab); // Trigger camera effect
+    }
+
+    // Access the AudioManager to play music and sound effects
+    AudioManager audioManager = FindObjectOfType<AudioManager>();
+
+    if (audioManager != null)
+    {
+        if (musicClip != null)
         {
-            audioSource.clip = musicClip;
-            audioSource.Play();
-			Debug.Log("Music started playing");
+            // Only change the music if a different music clip is specified
+            if (audioManager.CurrentMusicClip != musicClip)
+            {
+                audioManager.PlayMusic(musicClip);
+                Debug.Log("New music started in dialogue node");
+            }
         }
-		else
-		{
-			Debug.LogWarning("Nothing happened");
-		}
+
+        if (soundEffect != null) // Check if there's a sound effect to play
+        {
+            audioManager.PlaySoundEffect(soundEffect);
+            Debug.Log("Sound effect played in dialogue node");
+        }
     }
-	
-	}
-	public void ResetEffects()
+    else
     {
-        soundPlayed = false; // Reset the flag for the sound effect
+        Debug.LogWarning("AudioManager not found in the scene.");
     }
 
-	
+    if (displayEffects != null)
+    {
+        Instantiate(displayEffects); // Trigger display effect
+    }
+}
+
+
 }
