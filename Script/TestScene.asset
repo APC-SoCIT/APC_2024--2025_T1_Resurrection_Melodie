@@ -79,6 +79,7 @@ MonoBehaviour:
   speakerName: Joy
   dialogueLine: This is a test
   sprite: {fileID: 21300000, guid: 92e232fbd139790419b240c4be1c4e66, type: 3}
+  background: {fileID: 21300000, guid: e698e22e10730984f996aee2ad5658e1, type: 3}
   cameraEffectPrefab: {fileID: 0}
   displayEffects: {fileID: 0}
   soundEffect: {fileID: 0}
@@ -100,7 +101,7 @@ MonoBehaviour:
   - {fileID: -4366071820445917742}
   - {fileID: 728786916902851853}
   - {fileID: 3670600681006491342}
-  current: {fileID: 0}
+  current: {fileID: 728786916902851853}
 --- !u!114 &728786916902851853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +150,8 @@ MonoBehaviour:
   speakerName: Joy
   dialogueLine: When the next line starts, it should play Kirarin V
   sprite: {fileID: 0}
-  cameraEffectPrefab: {fileID: 0}
+  background: {fileID: 21300000, guid: e698e22e10730984f996aee2ad5658e1, type: 3}
+  cameraEffectPrefab: {fileID: 8854174374975638748, guid: 326b0bd873ce73c49aa4c68ce58b2ccc, type: 3}
   displayEffects: {fileID: 0}
   soundEffect: {fileID: 0}
   musicClip: {fileID: 0}
@@ -198,6 +200,7 @@ MonoBehaviour:
   speakerName: Joy
   dialogueLine: Kirarin - V
   sprite: {fileID: 0}
+  background: {fileID: 21300000, guid: e698e22e10730984f996aee2ad5658e1, type: 3}
   cameraEffectPrefab: {fileID: 0}
   displayEffects: {fileID: 0}
   soundEffect: {fileID: 8300000, guid: 8db964442b44cf04dba7f46960ae5b12, type: 3}
