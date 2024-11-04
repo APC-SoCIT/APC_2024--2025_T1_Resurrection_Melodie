@@ -6,17 +6,24 @@ public class CameraShakeEffect : MonoBehaviour
     public float duration = 2.0f;
     public float magnitude = 0.1f;
     private Camera mainCamera;
+    private RenderTexture renderTexture;
     
     void Start()
     {
         mainCamera = Camera.main;
-        Debug.Log("Starting matrix shake effect");
+        Debug.Log("Starting render texture shake effect");
+        SetupRenderTexture();
         StartCoroutine(ShakeCamera());
+    }
+
+    void SetupRenderTexture()
+    {
+        renderTexture = new RenderTexture(Screen.width, Screen.height, 24);
+        mainCamera.targetTexture = renderTexture;
     }
     
     private IEnumerator ShakeCamera()
     {
-        Matrix4x4 originalMatrix = mainCamera.projectionMatrix;
         float elapsed = 0f;
         
         while (elapsed < duration)
@@ -24,14 +31,17 @@ public class CameraShakeEffect : MonoBehaviour
             float xOffset = Random.Range(-1f, 1f) * magnitude;
             float yOffset = Random.Range(-1f, 1f) * magnitude;
             
-            Matrix4x4 shakeMatrix = Matrix4x4.TRS(new Vector3(xOffset, yOffset, 0), Quaternion.identity, Vector3.one);
-            mainCamera.projectionMatrix = originalMatrix * shakeMatrix;
+            Material material = new Material(Shader.Find("Unlit/Texture"));
+            material.mainTextureOffset = new Vector2(xOffset, yOffset);
+
+            Graphics.Blit(renderTexture, null, material);
             
             elapsed += Time.deltaTime;
             yield return null;
         }
         
-        mainCamera.projectionMatrix = originalMatrix;
+        mainCamera.targetTexture = null;
+        Destroy(renderTexture);
         Destroy(gameObject);
     }
 }

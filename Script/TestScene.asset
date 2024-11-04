@@ -81,7 +81,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 92e232fbd139790419b240c4be1c4e66, type: 3}
   background: {fileID: 21300000, guid: e698e22e10730984f996aee2ad5658e1, type: 3}
   cameraEffectPrefab: {fileID: 0}
-  displayEffects: {fileID: 0}
+  visualFX: {fileID: 0}
   soundEffect: {fileID: 0}
   musicClip: {fileID: 8300000, guid: 30dc3897f1a7f69478e8fffa5cb55f92, type: 3}
 --- !u!114 &11400000
@@ -147,11 +147,11 @@ MonoBehaviour:
   entry: 0
   exit: 0
   speakerName: Joy
-  dialogueLine: Last Node
+  dialogueLine: There should be a flash effect
   sprite: {fileID: 21300000, guid: 92e232fbd139790419b240c4be1c4e66, type: 3}
   background: {fileID: 0}
   cameraEffectPrefab: {fileID: 0}
-  displayEffects: {fileID: 0}
+  visualFX: {fileID: 2202958979257162296, guid: 0610dd56712294e4ea6e6eb1a86be45a, type: 3}
   soundEffect: {fileID: 0}
   musicClip: {fileID: 0}
 --- !u!114 &728786916902851853
@@ -204,7 +204,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 92e232fbd139790419b240c4be1c4e66, type: 3}
   background: {fileID: 0}
   cameraEffectPrefab: {fileID: 0}
-  displayEffects: {fileID: 0}
+  visualFX: {fileID: 0}
   soundEffect: {fileID: 0}
   musicClip: {fileID: 0}
 --- !u!114 &3419146264497083798
@@ -253,11 +253,11 @@ MonoBehaviour:
   entry: 0
   exit: 0
   speakerName: Joy
-  dialogueLine: When this line shows up, the camera should shake.
+  dialogueLine: When this line shows up, the camera should zoom in and out.
   sprite: {fileID: 21300000, guid: 92e232fbd139790419b240c4be1c4e66, type: 3}
   background: {fileID: 0}
-  cameraEffectPrefab: {fileID: 3421137207898771871, guid: e4a56550fa1ee9341b64f871fa55899b, type: 3}
-  displayEffects: {fileID: 0}
+  cameraEffectPrefab: {fileID: 5358670106022117387, guid: 596ffc2c9c5591a4eb8c7bf36d4ea86f, type: 3}
+  visualFX: {fileID: 0}
   soundEffect: {fileID: 0}
   musicClip: {fileID: 0}
 --- !u!114 &3670600681006491342
@@ -310,6 +310,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 92e232fbd139790419b240c4be1c4e66, type: 3}
   background: {fileID: 0}
   cameraEffectPrefab: {fileID: 0}
-  displayEffects: {fileID: 0}
+  visualFX: {fileID: 0}
   soundEffect: {fileID: 8300000, guid: 8db964442b44cf04dba7f46960ae5b12, type: 3}
   musicClip: {fileID: 0}

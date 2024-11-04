@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using XNode;
+using System.Collections;
 
 public class NodeParser : MonoBehaviour
 {
@@ -11,10 +10,12 @@ public class NodeParser : MonoBehaviour
     public Text dialogue;
     public Image speakerImage;
     private Coroutine _parser;
-
+    private TypewriterEffect typewriter;
 
     private void Start()
     {
+        typewriter = dialogue.GetComponent<TypewriterEffect>();
+        
         foreach (BaseNode b in graph.nodes)
         {
             if (b.GetString() == "Start")
@@ -40,10 +41,9 @@ public class NodeParser : MonoBehaviour
 
             case "DialogueNode":
                 speaker.text = dataParts[1];
-                dialogue.text = dataParts[2];
+                StartCoroutine(typewriter.Type(dataParts[2]));
                 speakerImage.sprite = b.GetSprite();
 
-                // Trigger effects if the node is of type DialogueNode
                 if (b is DialogueNode dialogueNode)
                 {
                     dialogueNode.TriggerEffects();

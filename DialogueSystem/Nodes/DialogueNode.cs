@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using XNode;
+using System;
 
 public class DialogueNode : BaseNode 
 {
     [Input] public int entry;
     [Output] public int exit;
-    public string speakerName;
-    public string dialogueLine;
+    public String speakerName;
+    public String dialogueLine;
     public Sprite sprite;
     public Sprite background;
     public GameObject cameraEffectPrefab;
-    public GameObject displayEffects; 
+    public GameObject visualFX; 
     public AudioClip soundEffect;
     public AudioClip musicClip;
 
@@ -76,9 +78,9 @@ public void TriggerEffects()
         }
     }
 
-    if (displayEffects != null)
+    if (visualFX != null)
     {
-        Instantiate(displayEffects); // Trigger display effect
+        Instantiate(visualFX); // Trigger vfx
     }
 }
 
