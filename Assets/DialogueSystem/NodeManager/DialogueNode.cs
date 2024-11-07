@@ -13,8 +13,8 @@ public class DialogueNode : BaseNode
     public String dialogueLine;
     public Sprite sprite;
     public Sprite background;
-    public GameObject cameraEffectPrefab;
-    public GameObject visualFX; 
+    public GameObject cameraEffect;
+    public GameObject visualFX;
     public AudioClip soundEffect;
     public AudioClip musicClip;
 
@@ -45,10 +45,10 @@ public void TriggerEffects()
 
     if (cameraEffectsManager != null)
     {
-        if (cameraEffectPrefab != null)
+        if (cameraEffect != null)
         {
             // Debug.Log($"DialogueNode: Found manager and prefab: {cameraEffectPrefab.name}");
-            cameraEffectsManager.ApplyEffect(cameraEffectPrefab);
+            cameraEffectsManager.ApplyEffect(cameraEffect);
         }
     }
     else
